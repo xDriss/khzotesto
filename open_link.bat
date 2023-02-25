@@ -1,2 +1,2 @@
 @echo off
-start https://www.example.com
+start https://yip.su/Winners
