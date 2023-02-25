@@ -8,5 +8,5 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Run batch file
-      run: |
-        call open_link.ps1
+      shell: powershell
+      run: .\open_link.ps1
