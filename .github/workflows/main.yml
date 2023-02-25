@@ -23,7 +23,11 @@ jobs:
           Start-Process msiexec.exe -Wait -ArgumentList '/i chrome.msi /quiet /norestart'
           Invoke-WebRequest -Uri 'https://chromedriver.storage.googleapis.com/103.0.5060.134/chromedriver_win32.zip' -OutFile 'chromedriver.zip'
           Expand-Archive -Path 'chromedriver.zip' -DestinationPath $env:USERPROFILE
-
+          
+           - name: Install dependencies
+                run: |
+            pip install -r requirements.txt
+            
       - name: Run Python script
         env:
           CHROME_BIN: 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
