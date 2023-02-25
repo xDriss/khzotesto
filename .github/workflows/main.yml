@@ -1,0 +1,12 @@
+name: Open Link in CMD
+on: [push]
+
+jobs:
+  open_link_job:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run batch file
+      run: |
+        call open_link.bat
