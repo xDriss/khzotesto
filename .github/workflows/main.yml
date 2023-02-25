@@ -28,4 +28,4 @@ jobs:
         env:
           CHROME_BIN: 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
         run: |
-          test.py
+         python test.py
