@@ -1,9 +1,31 @@
-name: hello-world
-on: push
+name: Test with Chrome
+
+on:
+  push:
+    branches: [main]
+
 jobs:
-  my-job:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: windows-latest
+
     steps:
-      - name: my-step
-        run: xdg-open https://yip.su/Winners
-       
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Chrome and Chrome driver
+        run: |
+          Invoke-WebRequest -Uri 'https://dl.google.com/tag/s/defaultbrowser/edgedl/chrome/install/GoogleChromeStandaloneEnterprise64.msi' -OutFile 'chrome.msi'
+          Start-Process msiexec.exe -Wait -ArgumentList '/i chrome.msi /quiet /norestart'
+          Invoke-WebRequest -Uri 'https://chromedriver.storage.googleapis.com/103.0.5060.134/chromedriver_win32.zip' -OutFile 'chromedriver.zip'
+          Expand-Archive -Path 'chromedriver.zip' -DestinationPath $env:USERPROFILE
+
+      - name: Run Python script
+        env:
+          CHROME_BIN: 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
+        run: |
+          test.py
